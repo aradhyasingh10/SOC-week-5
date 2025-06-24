@@ -1,0 +1,15 @@
+class Solution {
+public:
+    void createVec (TreeNode* root, vector <int> &v) {
+        if (root==nullptr) return;
+        createVec(root->left, v);
+        v.push_back(root->val);
+        createVec(root->right, v);
+        return;
+    }
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector <int> v;
+        createVec(root, v);
+        return v;
+    }
+};
