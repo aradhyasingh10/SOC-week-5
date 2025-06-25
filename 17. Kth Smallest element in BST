@@ -1,0 +1,14 @@
+class Solution {
+public:
+    void convert (TreeNode* root, vector <int> &v) {
+        if (root == nullptr) return;
+        convert (root->left, v);
+        v.push_back(root->val);
+        convert (root->right, v);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        vector <int> v;
+        convert(root, v);
+        return v[k-1];
+    }
+};
