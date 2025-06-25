@@ -1,0 +1,15 @@
+class Solution {
+public:
+    void insert (TreeNode* &root, int num) {
+        if (root==nullptr) {
+            root = new TreeNode (num);
+            return;
+        }
+        if (root->val > num) insert(root->left, num);
+        else insert(root->right, num);
+    }
+    TreeNode* insertIntoBST(TreeNode* root, int val) {
+        insert(root, val);
+        return root;
+    }
+};
