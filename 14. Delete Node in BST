@@ -1,0 +1,53 @@
+class Solution {
+public:
+    TreeNode* searchmax(TreeNode* root) {
+        if (root->right == nullptr) return root;
+        return searchmax(root->right);
+    }
+
+    void deleteHelper(TreeNode* &root) {
+        if (root->left == nullptr && root->right == nullptr) {
+            delete root;
+            root = nullptr;
+            return;
+        }
+
+        if (root->left == nullptr) {
+            TreeNode* temp = root;
+            root = root->right;
+            delete temp;
+            return;
+        }
+
+        if (root->right == nullptr) {
+            TreeNode* temp = root;
+            root = root->left;
+            delete temp;
+            return;
+        }
+
+        TreeNode* pred = searchmax(root->left);
+        int predVal = pred->val;
+        root->val = predVal;
+        deleteNodeHelper(root->left, predVal);
+    }
+
+    void deleteNodeHelper(TreeNode* &root, int key) {
+        if (root == nullptr) return;
+
+        if (root->val == key) {
+            deleteHelper(root);
+        }
+        else if (key < root->val) {
+            deleteNodeHelper(root->left, key);
+        }
+        else {
+            deleteNodeHelper(root->right, key);
+        }
+    }
+
+    TreeNode* deleteNode(TreeNode* root, int key) {
+        deleteNodeHelper(root, key);
+        return root;
+    }
+};
