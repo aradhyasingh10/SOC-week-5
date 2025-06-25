@@ -1,0 +1,13 @@
+class Solution {
+public:
+    TreeNode* search(TreeNode* root, const int num) {
+        if (root == nullptr) return nullptr;
+        if (root->val == num) return root;
+        else if (root->val > num) return search(root->left, num);
+        else return search(root->right, num);
+        return nullptr;
+    }
+    TreeNode* searchBST(TreeNode* root, int val) {
+        return search(root, val);
+    }
+};
