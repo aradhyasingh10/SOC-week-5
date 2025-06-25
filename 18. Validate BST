@@ -1,0 +1,18 @@
+class Solution {
+public:
+    void search (TreeNode* root, vector <int> &v) {
+        if (root == nullptr) return;
+        search (root->left, v);
+        v.push_back(root->val);
+        search(root->right, v);
+    }
+    bool isValidBST(TreeNode* root) {
+        vector <int> v;
+        search (root, v);
+        for (int i = 1; i<v.size(); i++) {
+            if (v[i]>v[i-1]) continue;
+            return false;
+        }
+        return true;
+    }
+};
