@@ -1,0 +1,39 @@
+class Solution {
+  public:
+    void search(Node* root, vector<Node*> &v) {
+        if (root == nullptr) return;
+        search(root->left, v);
+        v.push_back(root);
+        search(root->right, v);
+    }
+
+    vector<Node*> findPreSuc(Node* root, int key) {
+        vector<Node*> v;
+        search(root, v);
+        int idx = -1;
+        int start = 0, end = v.size() - 1;
+        int mid;
+
+        while (start <= end) {
+            mid = (start + end) / 2;
+            if (v[mid]->data == key) {
+                idx = mid;
+                break;
+            }
+            else if (v[mid]->data < key) start = mid + 1;
+            else end = mid - 1;
+        }
+
+        vector<Node*> ans(2, nullptr);
+
+        if (idx != -1) {
+            if (idx > 0) ans[0] = v[idx - 1];
+            if (idx + 1 < v.size()) ans[1] = v[idx + 1]; 
+        } else {
+            if (end >= 0) ans[0] = v[end];
+            if (start < v.size()) ans[1] = v[start]; 
+        }
+
+        return ans;
+    }
+};
