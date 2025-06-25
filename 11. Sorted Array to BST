@@ -1,0 +1,15 @@
+class Solution {
+public:
+    TreeNode* helper (int start, int end, vector <int> &v) {
+        if (start>end) return nullptr;
+        int mid = (start+end)/2;
+        TreeNode* root = new TreeNode (v[mid]);
+        root->left = helper(start, mid-1, v);
+        root->right = helper(mid+1, end, v);
+        return root;
+    }
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        int n = nums.size();
+        return helper (0, n-1, nums);
+    }
+};
